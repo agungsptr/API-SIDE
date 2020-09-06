@@ -10,6 +10,7 @@ url_prefix = '/api/v1'
 
 app = Flask(__name__)
 app.register_blueprint(res.user_api, url_prefix=url_prefix)
+app.register_blueprint(res.kartu_keluarga_api, url_prefix=url_prefix)
 
 # JWT CONFIG
 app.config['SECRET_KEY'] = "7Bs6vcBuoJQ97XnKNUbO2C4wvdwGPIzj14JQE3k2fdDdt0ihTJcbA" \

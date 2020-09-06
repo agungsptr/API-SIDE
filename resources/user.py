@@ -30,7 +30,7 @@ class BaseUser(Resource):
         self.reqparse = reqparse.RequestParser()
         super().__init__()
 
-    def reqvar(self):
+    def reqargs(self):
         self.reqparse.add_argument(
             'name',
             required=True, help='Name is required', location=['form', 'json'])
@@ -58,14 +58,13 @@ class GetPost(BaseUser):
     # index
     @admin_required
     def get(self):
-        # admin_required()
         return [marshal(user, user_fields)
                 for user in models.User.select()]
 
     # store
     @admin_required
     def post(self):
-        self.reqvar()
+        self.reqargs()
 
         args = self.reqparse.parse_args()
         username = args.get('username')
@@ -97,7 +96,7 @@ class GetPutDel(BaseUser):
     # edit
     @admin_required
     def put(self, id):
-        self.reqvar()
+        self.reqargs()
 
         user = get_or_abort(id)
         args = self.reqparse.parse_args()
