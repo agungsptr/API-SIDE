@@ -104,16 +104,26 @@ class GetPutDel(BaseUser):
 
         user = get_or_abort(id)
         args = self.reqparse.parse_args()
-        user.update(
-            name=args.get('name'),
-            username=args.get('username'),
-            password=generate_password_hash(args.get('password')),
-            telp=args.get('telp'),
-            alamat=args.get('alamat'),
-            jabatan=args.get('jabatan'),
-            role=args.get('role')).execute()
-        return {'success': True,
-                'data': marshal(get_or_abort(id), user_fields)}
+
+        try:
+            if user.username != args.get('username'):
+                models.User.select().where(models.User.username == args.get('username')).get()
+            else:
+                raise models.User.DoesNotExist
+        except models.User.DoesNotExist:
+            models.User.update(name=args.get('name'),
+                               username=args.get('username'),
+                               password=generate_password_hash(args.get('password')),
+                               telp=args.get('telp'),
+                               alamat=args.get('alamat'),
+                               jabatan=args.get('jabatan'),
+                               role=args.get('role')) \
+                .where(models.User.id == id).execute()
+            return {'success': True,
+                    'data': marshal(get_or_abort(id), user_fields)}
+        else:
+            return {'success': False,
+                    'message': 'Username has been teken'}
 
     # delete
     @admin_required
