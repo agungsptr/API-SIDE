@@ -70,8 +70,9 @@ class GetPost(BaseKk):
     # index
     @jwt_required
     def get(self):
-        return [marshal(kk, kk_fields)
+        data = [marshal(kk, kk_fields)
                 for kk in models.KartuKeluarga.select()]
+        return {'data': data}
 
     # store
     @jwt_required

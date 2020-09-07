@@ -58,8 +58,10 @@ class GetPost(BaseUser):
     # index
     @admin_required
     def get(self):
-        return [marshal(user, user_fields)
-                for user in models.User.select()]
+        users = [marshal(user, user_fields)
+                 for user in models.User.select()]
+        return {'success': True,
+                'data': users}
 
     # store
     @admin_required
@@ -81,9 +83,10 @@ class GetPost(BaseUser):
                 jabatan=args.get('jabatan'),
                 role=args.get('role'))
             return {'success': True,
-                    'message': marshal(user, user_fields)}
+                    'data': marshal(user, user_fields)}
         else:
-            return {'message': 'User is registered'}
+            return {'success': False,
+                    'message': 'User is registered'}
 
 
 class GetPutDel(BaseUser):
@@ -91,7 +94,8 @@ class GetPutDel(BaseUser):
     @admin_required
     def get(self, id):
         user = get_or_abort(id)
-        return marshal(user, user_fields)
+        return {'success': True,
+                'data': marshal(user, user_fields)}
 
     # edit
     @admin_required
@@ -109,7 +113,7 @@ class GetPutDel(BaseUser):
             jabatan=args.get('jabatan'),
             role=args.get('role')).execute()
         return {'success': True,
-                'message': marshal(get_or_abort(id), user_fields)}
+                'data': marshal(get_or_abort(id), user_fields)}
 
     # delete
     @admin_required
@@ -141,12 +145,14 @@ class Login(BaseUser):
                             'role': user.role}
                 access_token = create_access_token(identity=identity)
                 return {'success': True,
-                        'message': marshal(user, user_fields),
+                        'data': marshal(user, user_fields),
                         'access_token': access_token}
             else:
-                return {'message': 'User or Password is wrong'}
+                return {'success': False,
+                        'message': 'User or Password is wrong'}
         except models.User.DoesNotExist:
-            return {'message': 'User or Password is wrong'}
+            return {'success': False,
+                    'message': 'User or Password is wrong'}
 
 
 user_api = Blueprint('resources.user', __name__)
