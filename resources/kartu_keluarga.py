@@ -72,7 +72,8 @@ class GetPost(BaseKk):
     def get(self):
         data = [marshal(kk, kk_fields)
                 for kk in models.KartuKeluarga.select()]
-        return {'data': data}
+        return {'success': True,
+                'data': data}
 
     # store
     @jwt_required
@@ -88,7 +89,8 @@ class GetPost(BaseKk):
             return {'success': True,
                     'message': marshal(kk, kk_fields)}
         else:
-            return {'message': 'Kartu Keluarga is registered'}
+            return {'success': False,
+                    'message': 'Kartu Keluarga is registered'}
 
 
 class GetPutDel(BaseKk):
@@ -96,7 +98,8 @@ class GetPutDel(BaseKk):
     @jwt_required
     def get(self, id):
         kk = get_or_abort(id)
-        return marshal(kk, kk_fields)
+        return {'success': True,
+                'data': marshal(kk, kk_fields)}
 
     # edit
     @jwt_required
