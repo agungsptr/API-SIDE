@@ -3,7 +3,6 @@ from flask_jwt_extended import create_access_token
 from flask_restful import Resource, Api, reqparse, fields, marshal
 from werkzeug.security import generate_password_hash, check_password_hash
 
-import models
 from .resource import *
 
 user_fields = {
@@ -129,7 +128,7 @@ class GetPutDel(BaseUser):
     @admin_required
     def delete(self, id):
         user = get_or_abort(id)
-        user.delete().execute()
+        models.User.delete().where(models.User.id == id).execute()
         return {'success': True,
                 'message': "User {} is deleted".format(user.name)}
 
@@ -151,9 +150,7 @@ class Login(BaseUser):
             user = models.User.get(models.User.username == username)
 
             if check_password_hash(user.password, password):
-                identity = {'username': username,
-                            'role': user.role}
-                access_token = create_access_token(identity=identity)
+                access_token = create_access_token(identity=username)
                 return {'success': True,
                         'data': marshal(user, user_fields),
                         'access_token': access_token}

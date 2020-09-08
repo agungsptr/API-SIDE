@@ -2,7 +2,6 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
-import models
 from .resource import *
 
 kk_fields = {
@@ -12,10 +11,10 @@ kk_fields = {
     'kabupaten': fields.String,
     'kecamatan': fields.String,
     'kelurahan': fields.String,
-    'rt': fields.String,
-    'rw': fields.String,
+    'rt': fields.Integer,
+    'rw': fields.Integer,
     'alamat': fields.String,
-    'kode_pos': fields.Integer
+    'kode_pos': fields.String
 }
 
 
@@ -70,10 +69,10 @@ class GetPost(BaseKk):
     # index
     @jwt_required
     def get(self):
-        data = [marshal(kk, kk_fields)
-                for kk in models.KartuKeluarga.select()]
+        kk = [marshal(kk, kk_fields)
+              for kk in models.KartuKeluarga.select()]
         return {'success': True,
-                'data': data}
+                'data': kk}
 
     # store
     @jwt_required
@@ -108,17 +107,27 @@ class GetPutDel(BaseKk):
 
         kk = get_or_abort(id)
         args = self.reqparse.parse_args()
-        kk.update(args).execute()
-        return {'success': True,
-                'message': marshal(get_or_abort(args.get('id')), kk_fields)}
+
+        try:
+            if kk.id != id:
+                models.KartuKeluarga.select().where(models.KartuKeluarga.id == id).get()
+            else:
+                raise models.KartuKeluarga.DoesNotExist
+        except models.KartuKeluarga.DoesNotExist:
+            models.KartuKeluarga.update(**args).where(models.KartuKeluarga.id == id).execute()
+            return {'success': True,
+                    'message': marshal(get_or_abort(args.get('id')), kk_fields)}
+        else:
+            return {'success': False,
+                    'message': 'Nomor KK alredy exist'}
 
     # delete
     @jwt_required
     def delete(self, id):
-        user = get_or_abort(id)
-        user.delete().execute()
+        kk = get_or_abort(id)
+        models.KartuKeluarga.delete().where(models.KartuKeluarga.id == id).execute()
         return {'success': True,
-                'message': "User {} is deleted".format(user.name)}
+                'message': "Kartu Keluarga {} is deleted".format(kk.name)}
 
 
 kartu_keluarga_api = Blueprint('resources.kartu_keluarga', __name__)
