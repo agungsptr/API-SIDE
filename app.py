@@ -8,6 +8,7 @@ import resources as res
 
 url_prefix = '/api/v1'
 
+# Init Flask App and register Blueprint
 app = Flask(__name__)
 app.register_blueprint(res.user_api, url_prefix=url_prefix)
 app.register_blueprint(res.kartu_keluarga_api, url_prefix=url_prefix)
