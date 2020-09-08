@@ -36,7 +36,7 @@ class BaseSarana(Resource):
 
 class GetPost(BaseSarana):
     # index
-    # @jwt_required
+    @jwt_required
     def get(self):
         sarana = [marshal(sarana, sarana_fields)
                     for sarana in models.InfSarana.select()]
@@ -44,7 +44,7 @@ class GetPost(BaseSarana):
                 'data': sarana}
 
     # store
-    # @jwt_required
+    @jwt_required
     def post(self):
         self.reqargs()
 
@@ -61,14 +61,14 @@ class GetPost(BaseSarana):
 
 class GetPutDel(BaseSarana):
     # show
-    # @jwt_required
+    @jwt_required
     def get(self, id):
         sarana = get_or_abort(id)
         return {'success': True,
                 'data': marshal(sarana, sarana_fields)}
 
     # edit
-    # @jwt_required
+    @jwt_required
     def put(self, id):
         self.reqargs()
 
@@ -84,7 +84,7 @@ class GetPutDel(BaseSarana):
                     'message': 'Model does not exist'}
 
     # delete
-    # @jwt_required
+    @jwt_required
     def delete(self, id):
         sarana = get_or_abort(id)
         models.InfSarana.delete().where(models.InfSarana.id == id).execute()
