@@ -29,13 +29,13 @@ class BaseAdm(Resource):
     def reqargs(self):
         self.reqparse.add_argument(
             'alamat',
-            required=True, help='Alamat is required', location=['form', 'json'])
+            required=False, location=['form', 'json'])
         self.reqparse.add_argument(
             'telp', type=int,
-            required=True, help='Telp is required', location=['form', 'json'])
+            required=False, location=['form', 'json'])
         self.reqparse.add_argument(
             'email', type=email,
-            required=True, help='Email is required', location=['form', 'json'])
+            required=False, location=['form', 'json'])
 
 
 class GetPost(BaseAdm):
@@ -90,10 +90,10 @@ class GetPutDel(BaseAdm):
     # delete
     @jwt_required
     def delete(self, id):
-        adm = get_or_abort(id)
+        get_or_abort(id)
         models.InfAdministrasi.delete().where(models.InfAdministrasi.id == id).execute()
         return {'success': True,
-                'message': "Administrasi {} is deleted".format(adm.telp)}
+                'message': "Info Administrasi is deleted"}
 
 
 inf_administrasi_api = Blueprint('resources.inf_administrasi', __name__)
