@@ -2,7 +2,7 @@ from .model import *
 
 
 class InfPenduduk(BaseModel):
-    total_pria = IntegerField()
-    total_wanita = IntegerField()
-    total_kk = IntegerField()
-    total_rtm = IntegerField()
+    total_pria = IntegerField(null=True)
+    total_wanita = IntegerField(null=True)
+    total_kk = IntegerField(null=True)
+    total_rtm = IntegerField(null=True)

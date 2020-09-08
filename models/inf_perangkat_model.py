@@ -2,11 +2,11 @@ from .model import *
 
 
 class InfPerangkat(BaseModel):
-    kades = CharField()
-    sekdes = CharField()
-    ku_tata_usaha = CharField()
-    ku_keuangan = CharField()
-    ku_perencanaan = CharField()
-    ks_pemerintahan = CharField()
-    ks_kesejahteraan = CharField()
-    ks_pelayanan = CharField()
+    kades = CharField(null=True)
+    sekdes = CharField(null=True)
+    ku_tata_usaha = CharField(null=True)
+    ku_keuangan = CharField(null=True)
+    ku_perencanaan = CharField(null=True)
+    ks_pemerintahan = CharField(null=True)
+    ks_kesejahteraan = CharField(null=True)
+    ks_pelayanan = CharField(null=True)
