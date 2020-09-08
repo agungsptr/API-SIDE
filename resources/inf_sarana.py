@@ -39,7 +39,7 @@ class GetPost(BaseSarana):
     @jwt_required
     def get(self):
         sarana = [marshal(sarana, sarana_fields)
-                    for sarana in models.InfSarana.select()]
+                  for sarana in models.InfSarana.select()]
         return {'success': True,
                 'data': sarana}
 

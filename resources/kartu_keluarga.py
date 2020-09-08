@@ -132,5 +132,5 @@ class GetPutDel(BaseKk):
 
 kartu_keluarga_api = Blueprint('resources.kartu_keluarga', __name__)
 api = Api(kartu_keluarga_api)
-api.add_resource(GetPost, '/kartukeluarga', endpoint='kartukeluarga/gp')
-api.add_resource(GetPutDel, '/kartukeluarga/<string:id>', endpoint='kartukeluarga/gpd')
+api.add_resource(GetPost, '/kartu-keluarga', endpoint='kartu-keluarga/gp')
+api.add_resource(GetPutDel, '/kartu-keluarga/<string:id>', endpoint='kartu-keluarga/gpd')

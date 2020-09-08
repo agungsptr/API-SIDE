@@ -90,5 +90,5 @@ class GetPutDel(BasePd):
 
 prog_desa_api = Blueprint('resources.prog_desa', __name__)
 api = Api(prog_desa_api)
-api.add_resource(GetPost, '/progdesa', endpoint='progdesa/gp')
-api.add_resource(GetPutDel, '/progdesa/<string:id>', endpoint='progdesa/gpd')
+api.add_resource(GetPost, '/prog-desa', endpoint='prog-desa/gp')
+api.add_resource(GetPutDel, '/prog-desa/<int:id>', endpoint='prog-desa/gpd')
