@@ -40,14 +40,14 @@ class BaseUser(Resource):
             'password',
             required=True, help='Password is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'telp',
-            required=False, help='', location=['form', 'json'])
+            'telp', type=int,
+            required=False, location=['form', 'json'])
         self.reqparse.add_argument(
             'alamat',
             required=True, help='Alamat is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'jabatan',
-            required=False, help='', location=['form', 'json'])
+            required=False, location=['form', 'json'])
         self.reqparse.add_argument(
             'role',
             required=True, help='Role is required', location=['form', 'json'])

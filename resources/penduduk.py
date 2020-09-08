@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
-from flask_restful import Resource, Api, reqparse, fields, marshal
+from flask_restful import Resource, Api, reqparse, fields, marshal, inputs
 
 from .resource import *
 
@@ -48,7 +48,7 @@ class BasePenduduk(Resource):
     def reqargs(self):
         self.reqparse.add_argument(
             'id',
-            required=True, help='Nomor NIK is required', location=['form', 'json'])
+            required=True, type=int, help='Nomor NIK is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'nama',
             required=True, help='Nama is required', location=['form', 'json'])
@@ -56,11 +56,11 @@ class BasePenduduk(Resource):
             'tempat_lahir',
             required=True, help='Tempat Lahir is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'tanggal_lahir',
+            'tanggal_lahir', type=inputs.datetime_from_iso8601,
             required=True, help='Tanggal Lahir is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'darah',
-            required=False, help='', location=['form', 'json'])
+            required=False, location=['form', 'json'])
         self.reqparse.add_argument(
             'alamat',
             required=True, help='Alamat is required', location=['form', 'json'])
@@ -71,10 +71,10 @@ class BasePenduduk(Resource):
             'kelurahan',
             required=True, help='Kelurahan is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'rt',
+            'rt', type=int,
             required=False, help='Rt is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'rw',
+            'rw', type=int,
             required=False, help='Rw is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'agama',
@@ -103,7 +103,7 @@ class GetPost(BasePenduduk):
                 'data': penduduk}
 
     # store
-    @jwt_required
+    # @jwt_required
     def post(self):
         self.reqargs()
 

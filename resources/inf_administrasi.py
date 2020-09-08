@@ -31,10 +31,10 @@ class BaseAdm(Resource):
             'alamat',
             required=True, help='Alamat is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'telp',
-            required=True, type=int, help='Telp is required', location=['form', 'json'])
+            'telp', type=int,
+            required=True, help='Telp is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'email',
+            'email', type=email,
             required=True, help='Email is required', location=['form', 'json'])
 
 

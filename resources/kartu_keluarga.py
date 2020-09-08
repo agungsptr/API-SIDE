@@ -55,10 +55,10 @@ class BaseKk(Resource):
             'kelurahan',
             required=True, help='Kelurahan is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'rt',
+            'rt', type=int,
             required=False, help='Rt is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'rw',
+            'rw', type=int,
             required=False, help='Rw is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'kode_pos',
