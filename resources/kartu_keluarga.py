@@ -86,7 +86,7 @@ class GetPost(BaseKk):
         except models.KartuKeluarga.DoesNotExist:
             kk = models.KartuKeluarga.create(**args)
             return {'success': True,
-                    'message': marshal(kk, kk_fields)}
+                    'data': marshal(kk, kk_fields)}
         else:
             return {'success': False,
                     'message': 'Kartu Keluarga is registered'}
@@ -116,7 +116,7 @@ class GetPutDel(BaseKk):
         except models.KartuKeluarga.DoesNotExist:
             models.KartuKeluarga.update(**args).where(models.KartuKeluarga.id == id).execute()
             return {'success': True,
-                    'message': marshal(get_or_abort(args.get('id')), kk_fields)}
+                    'data': marshal(get_or_abort(args.get('id')), kk_fields)}
         else:
             return {'success': False,
                     'message': 'Nomor KK alredy exist'}
@@ -127,7 +127,7 @@ class GetPutDel(BaseKk):
         kk = get_or_abort(id)
         models.KartuKeluarga.delete().where(models.KartuKeluarga.id == id).execute()
         return {'success': True,
-                'message': "Kartu Keluarga {} is deleted".format(kk.name)}
+                'message': "Kartu Keluarga {} is deleted".format(kk.id)}
 
 
 kartu_keluarga_api = Blueprint('resources.kartu_keluarga', __name__)

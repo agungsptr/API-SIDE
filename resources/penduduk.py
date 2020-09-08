@@ -8,7 +8,7 @@ penduduk_fields = {
     'id': fields.String,
     'nama': fields.String,
     'tempat_lahir': fields.String,
-    'tanggal_lahir': fields.DateTime,
+    'tanggal_lahir': fields.String,
     'darah': fields.String,
     'alamat': fields.String,
     'kecamatan': fields.String,
@@ -35,7 +35,7 @@ def get_or_abort(id, penduduk: bool):
         try:
             query = models.KartuKeluarga.get_by_id(id)
         except models.KartuKeluarga.DoesNotExist:
-            abort(404)
+            abort(404, 'Nomor Kartu Keluarga not exist')
         else:
             return query
 
@@ -50,7 +50,7 @@ class BasePenduduk(Resource):
             'id',
             required=True, help='Nomor NIK is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'Nama',
+            'nama',
             required=True, help='Nama is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'tempat_lahir',
@@ -116,10 +116,10 @@ class GetPost(BasePenduduk):
         except models.Penduduk.DoesNotExist:
             penduduk = models.Penduduk.create(**args)
             return {'success': True,
-                    'message': marshal(penduduk, penduduk_fields)}
+                    'data': marshal(penduduk, penduduk_fields)}
         else:
             return {'success': False,
-                    'message': 'Kartu Keluarga is registered'}
+                    'message': 'Nomor NIK is alredy exist'}
 
 
 class GetPutDel(BasePenduduk):
@@ -149,7 +149,7 @@ class GetPutDel(BasePenduduk):
         except models.Penduduk.DoesNotExist:
             models.Penduduk.update(**args).where(models.Penduduk.id == id).execute()
             return {'success': True,
-                    'message': marshal(get_or_abort(args.get('id'), True), penduduk_fields)}
+                    'data': marshal(get_or_abort(args.get('id'), True), penduduk_fields)}
         else:
             return {'success': False,
                     'message': 'Nomor NIK is alredy exist'}
@@ -160,10 +160,10 @@ class GetPutDel(BasePenduduk):
         penduduk = get_or_abort(id, True)
         models.Penduduk.delete().where(models.Penduduk.id == id).execute()
         return {'success': True,
-                'message': "Kependudukan {} is deleted".format(penduduk.name)}
+                'message': "Kependudukan {} is deleted".format(penduduk.id)}
 
 
-kartu_keluarga_api = Blueprint('resources.kartu_keluarga', __name__)
-api = Api(kartu_keluarga_api)
-api.add_resource(GetPost, '/kartukeluarga', endpoint='kartukeluarga/gp')
-api.add_resource(GetPutDel, '/kartukeluarga/<string:id>', endpoint='kartukeluarga/gpd')
+penduduk_api = Blueprint('resources.penduduk', __name__)
+api = Api(penduduk_api)
+api.add_resource(GetPost, '/penduduk', endpoint='penduduk/gp')
+api.add_resource(GetPutDel, '/penduduk/<string:id>', endpoint='penduduk/gpd')
