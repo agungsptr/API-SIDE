@@ -1,5 +1,5 @@
 from flask import abort
-from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
+from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request, exceptions
 from functools import wraps
 from email_validator import validate_email, EmailNotValidError
 
@@ -9,7 +9,11 @@ import models
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        verify_jwt_in_request()
+        try:
+            verify_jwt_in_request()
+        except exceptions.NoAuthorizationError:
+            return abort(403)
+
         identity = get_jwt_identity()
         try:
             user = models.User.select().where(models.User.username == identity).get()
@@ -18,6 +22,17 @@ def admin_required(fn):
             else:
                 return fn(*args, **kwargs)
         except models.User.DoesNotExist:
+            return abort(403)
+
+    return wrapper
+
+
+def login_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        try:
+            verify_jwt_in_request()
+        except exceptions.NoAuthorizationError:
             return abort(403)
 
     return wrapper

@@ -67,7 +67,7 @@ class BaseKk(Resource):
 
 class GetPost(BaseKk):
     # index
-    @jwt_required
+    @login_required
     def get(self):
         kk = [marshal(kk, kk_fields)
               for kk in models.KartuKeluarga.select()]
