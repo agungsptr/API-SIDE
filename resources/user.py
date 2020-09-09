@@ -63,7 +63,7 @@ class GetPost(BaseUser):
                 'data': users}
 
     # store
-    @admin_required
+    # @admin_required
     def post(self):
         self.reqargs()
 
