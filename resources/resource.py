@@ -32,6 +32,7 @@ def login_required(fn):
     def wrapper(*args, **kwargs):
         try:
             verify_jwt_in_request()
+            return fn(*args, **kwargs)
         except exceptions.NoAuthorizationError:
             return abort(403)
 
