@@ -8,7 +8,10 @@ url_prefix = '/api/v1'
 
 # Init Flask App
 app = Flask(__name__)
-app.config.from_object("config.Development")
+if app.config["ENV"] == "production":
+    app.config.from_object("config.Production")
+else:
+    app.config.from_object("config.Development")
 
 # Register Blueprints
 app.register_blueprint(res.user_api, url_prefix=url_prefix)

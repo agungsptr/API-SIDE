@@ -19,7 +19,11 @@ class Config(object):
 
 
 class Production(Config):
-    pass
+    DB_HOST = "ec2-54-161-58-21.compute-1.amazonaws.com"
+    DB_USERNAME = "wdcoyjwbikejlp"
+    DB_PASSWORD = "7ea8d69fb2d4a5c7f1acdba245bc904076d9bfd60d490428d3caeccacccd23a3"
+    DB_PORT = 5432
+    DB_NAME = "d3a2s00peg2eae"
 
 
 class Development(Config):
