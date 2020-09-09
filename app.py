@@ -20,7 +20,7 @@ app.register_blueprint(res.inf_dusun_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_administrasi_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_penduduk_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_perangkat_api, url_prefix=url_prefix)
-app.register_blueprint(res.inf_umum, url_prefix=url_prefix)
+app.register_blueprint(res.inf_umum_api, url_prefix=url_prefix)
 
 # JWT CONFIG
 app.config['SECRET_KEY'] = "7Bs6vcBuoJQ97XnKNUbO2C4wvdwGPIzj14JQE3k2fdDdt0ihTJcbA" \
