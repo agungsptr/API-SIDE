@@ -1,11 +1,11 @@
 from peewee import *
-from config import Config
+from config import Production as pd
 
 db = PostgresqlDatabase(
-    database=Config.DB_NAME,
-    user=Config.DB_USERNAME,
-    host=Config.DB_HOST,
-    port=Config.DB_PORT)
+    database=pd.DB_NAME,
+    user=pd.DB_USERNAME,
+    host=pd.DB_HOST,
+    port=pd.DB_PORT)
 
 
 class BaseModel(Model):

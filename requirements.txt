@@ -13,6 +13,7 @@ Jinja2==2.11.2
 json-encode-manager==0.0.2
 MarkupSafe==1.1.1
 peewee==3.13.3
+psycopg2-binary==2.8.6
 PyJWT==1.7.1
 PyMySQL==0.10.0
 pytz==2020.1
