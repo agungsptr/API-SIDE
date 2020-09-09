@@ -1,10 +1,11 @@
 from peewee import *
+from config import Config
 
 db = MySQLDatabase(
-    database='side',
-    user='root',
-    host='127.0.0.1',
-    port=3306)
+    database=Config.DB_NAME,
+    user=Config.DB_USERNAME,
+    host=Config.DB_HOST,
+    port=Config.DB_PORT)
 
 
 class BaseModel(Model):

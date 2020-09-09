@@ -1,5 +1,3 @@
-import datetime
-
 from flask import Flask
 from flask_jwt_extended import JWTManager, jwt_required, get_raw_jwt
 
@@ -8,8 +6,11 @@ import resources as res
 
 url_prefix = '/api/v1'
 
-# Init Flask App and register Blueprint
+# Init Flask App
 app = Flask(__name__)
+app.config.from_object("config.Development")
+
+# Register Blueprints
 app.register_blueprint(res.user_api, url_prefix=url_prefix)
 app.register_blueprint(res.kartu_keluarga_api, url_prefix=url_prefix)
 app.register_blueprint(res.penduduk_api, url_prefix=url_prefix)
@@ -21,15 +22,6 @@ app.register_blueprint(res.inf_administrasi_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_penduduk_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_perangkat_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_umum_api, url_prefix=url_prefix)
-
-# JWT CONFIG
-app.config['SECRET_KEY'] = "7Bs6vcBuoJQ97XnKNUbO2C4wvdwGPIzj14JQE3k2fdDdt0ihTJcbA" \
-                           "PuDtyxmzbL_SIfaStBM3lUyFN0SJxdGwJ4hoZd-UjVsDWmmtU4Yot" \
-                           "uSg_hMUz5DRJKtDiRLo0LQghjwQpqveot9w8G5as7JR7ppvVdZfcM" \
-                           "wYYAtgDltJa8"
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECK'] = ['access', 'refresh']
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 
 # Set blacklist token for loging out
 jwt = JWTManager(app)
@@ -52,4 +44,4 @@ def logout():
 
 if __name__ == '__main__':
     md.init()
-    app.run(debug=True)
+    app.run()
