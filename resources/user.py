@@ -55,7 +55,7 @@ class BaseUser(Resource):
 
 class GetPost(BaseUser):
     # index
-    @admin_required
+    # @admin_required
     def get(self):
         users = [marshal(user, user_fields)
                  for user in models.User.select()]
