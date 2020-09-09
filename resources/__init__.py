@@ -7,3 +7,5 @@ from .inf_sarana import inf_sarana_api
 from .inf_dusun import inf_dusun_api
 from .inf_administrasi import inf_administrasi_api
 from .inf_penduduk import inf_penduduk_api
+from .inf_perangkat import inf_perangkat_api
+from .inf_umum import inf_umum_api

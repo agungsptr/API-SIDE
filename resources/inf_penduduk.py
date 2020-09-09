@@ -5,7 +5,7 @@ from flask_restful import Resource, Api, reqparse, fields, marshal
 from .resource import *
 
 ip_fields = {
-    'id': fields.String,
+    'id': fields.Integer,
     'total_pria': fields.Integer,
     'total_wanita': fields.Integer,
     'total_kk': fields.Integer,
@@ -97,10 +97,10 @@ class GetPutDel(BaseIp):
         get_or_abort(id)
         models.InfPenduduk.delete().where(models.InfPenduduk.id == id).execute()
         return {'success': True,
-                'message': "Info Peduduk is deleted"}
+                'message': "Info Peduduk Desa is deleted"}
 
 
 inf_penduduk_api = Blueprint('resources.inf_penduduk', __name__)
 api = Api(inf_penduduk_api)
 api.add_resource(GetPost, '/inf-penduduk', endpoint='inf-penduduk/gp')
-api.add_resource(GetPutDel, '/inf-penduduk/<int:id>', endpoint='inf-administrasi/gpd')
+api.add_resource(GetPutDel, '/inf-penduduk/<int:id>', endpoint='inf-penduduk/gpd')

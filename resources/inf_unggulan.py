@@ -5,7 +5,7 @@ from flask_restful import Resource, Api, reqparse, fields, marshal
 from .resource import *
 
 unggulan_fields = {
-    'id': fields.String,
+    'id': fields.Integer,
     'nama': fields.String
 }
 

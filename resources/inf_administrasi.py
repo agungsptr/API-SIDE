@@ -5,7 +5,7 @@ from flask_restful import Resource, Api, reqparse, fields, marshal
 from .resource import *
 
 adm_fields = {
-    'id': fields.String,
+    'id': fields.Integer,
     'alamat': fields.String,
     'telp': fields.String,
     'email': fields.String
@@ -93,7 +93,7 @@ class GetPutDel(BaseAdm):
         get_or_abort(id)
         models.InfAdministrasi.delete().where(models.InfAdministrasi.id == id).execute()
         return {'success': True,
-                'message': "Info Administrasi is deleted"}
+                'message': "Info Administrasi Desa is deleted"}
 
 
 inf_administrasi_api = Blueprint('resources.inf_administrasi', __name__)
