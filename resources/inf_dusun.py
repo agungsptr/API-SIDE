@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
 from .resource import *
@@ -36,7 +35,7 @@ class BaseDusun(Resource):
 
 class GetPost(BaseDusun):
     # index
-    @jwt_required
+    @login_required
     def get(self):
         dusun = [marshal(dusun, dusun_fields)
                  for dusun in models.InfDusun.select()]
@@ -44,7 +43,7 @@ class GetPost(BaseDusun):
                 'data': dusun}
 
     # store
-    @jwt_required
+    @login_required
     def post(self):
         self.reqargs()
 
@@ -61,14 +60,14 @@ class GetPost(BaseDusun):
 
 class GetPutDel(BaseDusun):
     # show
-    @jwt_required
+    @login_required
     def get(self, id):
         dusun = get_or_abort(id)
         return {'success': True,
                 'data': marshal(dusun, dusun_fields)}
 
     # edit
-    @jwt_required
+    @login_required
     def put(self, id):
         self.reqargs()
 
@@ -84,7 +83,7 @@ class GetPutDel(BaseDusun):
                     'message': 'Model does not exist'}
 
     # delete
-    @jwt_required
+    @login_required
     def delete(self, id):
         dusun = get_or_abort(id)
         models.InfDusun.delete().where(models.InfDusun.id == id).execute()

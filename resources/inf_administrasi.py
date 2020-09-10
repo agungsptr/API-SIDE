@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
 from .resource import *
@@ -40,7 +39,7 @@ class BaseAdm(Resource):
 
 class GetPost(BaseAdm):
     # index
-    @jwt_required
+    @login_required
     def get(self):
         adm = [marshal(adm, adm_fields)
                for adm in models.InfAdministrasi.select()]
@@ -48,7 +47,7 @@ class GetPost(BaseAdm):
                 'data': adm}
 
     # store
-    @jwt_required
+    @login_required
     def post(self):
         self.reqargs()
 
@@ -65,14 +64,14 @@ class GetPost(BaseAdm):
 
 class GetPutDel(BaseAdm):
     # show
-    @jwt_required
+    @login_required
     def get(self, id):
         adm = get_or_abort(id)
         return {'success': True,
                 'data': marshal(adm, adm_fields)}
 
     # edit
-    @jwt_required
+    @login_required
     def put(self, id):
         self.reqargs()
 
@@ -88,7 +87,7 @@ class GetPutDel(BaseAdm):
                     'message': 'Model does not exist'}
 
     # delete
-    @jwt_required
+    @login_required
     def delete(self, id):
         get_or_abort(id)
         models.InfAdministrasi.delete().where(models.InfAdministrasi.id == id).execute()

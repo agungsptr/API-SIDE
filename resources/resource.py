@@ -1,7 +1,8 @@
+from functools import wraps
+
+from email_validator import validate_email, EmailNotValidError
 from flask import abort
 from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request, exceptions
-from functools import wraps
-from email_validator import validate_email, EmailNotValidError
 
 import models
 

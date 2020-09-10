@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
 from .resource import *
@@ -32,7 +31,7 @@ class BasePd(Resource):
 
 class GetPost(BasePd):
     # index
-    @jwt_required
+    @login_required
     def get(self):
         pd = [marshal(pd, pd_fields)
               for pd in models.ProgDesa.select()]
@@ -40,7 +39,7 @@ class GetPost(BasePd):
                 'data': pd}
 
     # store
-    @jwt_required
+    @login_required
     def post(self):
         self.reqargs()
 
@@ -57,14 +56,14 @@ class GetPost(BasePd):
 
 class GetPutDel(BasePd):
     # show
-    @jwt_required
+    @login_required
     def get(self, id):
         pd = get_or_abort(id)
         return {'success': True,
                 'data': marshal(pd, pd_fields)}
 
     # edit
-    @jwt_required
+    @login_required
     def put(self, id):
         self.reqargs()
 
@@ -80,7 +79,7 @@ class GetPutDel(BasePd):
                     'message': 'Model does not exist'}
 
     # delete
-    @jwt_required
+    @login_required
     def delete(self, id):
         pd = get_or_abort(id)
         models.ProgDesa.delete().where(models.ProgDesa.id == id).execute()

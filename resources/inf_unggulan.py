@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
 from .resource import *
@@ -32,7 +31,7 @@ class BaseUnggulan(Resource):
 
 class GetPost(BaseUnggulan):
     # index
-    @jwt_required
+    @login_required
     def get(self):
         unggulan = [marshal(unggulan, unggulan_fields)
                     for unggulan in models.InfUnggulan.select()]
@@ -40,7 +39,7 @@ class GetPost(BaseUnggulan):
                 'data': unggulan}
 
     # store
-    @jwt_required
+    @login_required
     def post(self):
         self.reqargs()
 
@@ -57,14 +56,14 @@ class GetPost(BaseUnggulan):
 
 class GetPutDel(BaseUnggulan):
     # show
-    @jwt_required
+    @login_required
     def get(self, id):
         unggulan = get_or_abort(id)
         return {'success': True,
                 'data': marshal(unggulan, unggulan_fields)}
 
     # edit
-    @jwt_required
+    @login_required
     def put(self, id):
         self.reqargs()
 
@@ -80,7 +79,7 @@ class GetPutDel(BaseUnggulan):
                     'message': 'Model does not exist'}
 
     # delete
-    @jwt_required
+    @login_required
     def delete(self, id):
         unggulan = get_or_abort(id)
         models.InfUnggulan.delete().where(models.InfUnggulan.id == id).execute()

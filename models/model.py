@@ -1,5 +1,6 @@
 from flask import Flask
 from peewee import *
+
 from config import *
 
 config = {}

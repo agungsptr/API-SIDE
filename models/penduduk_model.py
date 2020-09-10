@@ -1,5 +1,5 @@
-from .model import *
 from .kartu_keluarga_model import KartuKeluarga
+from .model import *
 
 
 class Penduduk(BaseModel):

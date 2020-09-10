@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
 from .resource import *
@@ -75,7 +74,7 @@ class GetPost(BaseKk):
                 'data': kk}
 
     # store
-    @jwt_required
+    @login_required
     def post(self):
         self.reqargs()
 
@@ -94,14 +93,14 @@ class GetPost(BaseKk):
 
 class GetPutDel(BaseKk):
     # show
-    @jwt_required
+    @login_required
     def get(self, id):
         kk = get_or_abort(id)
         return {'success': True,
                 'data': marshal(kk, kk_fields)}
 
     # edit
-    @jwt_required
+    @login_required
     def put(self, id):
         self.reqargs()
 
@@ -122,7 +121,7 @@ class GetPutDel(BaseKk):
                     'message': 'Nomor KK alredy exist'}
 
     # delete
-    @jwt_required
+    @login_required
     def delete(self, id):
         kk = get_or_abort(id)
         models.KartuKeluarga.delete().where(models.KartuKeluarga.id == id).execute()

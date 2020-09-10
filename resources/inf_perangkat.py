@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, Api, reqparse, fields, marshal
 
 from .resource import *
@@ -60,7 +59,7 @@ class BaseIp(Resource):
 
 class GetPost(BaseIp):
     # index
-    @jwt_required
+    @login_required
     def get(self):
         ip = [marshal(ip, ip_fields)
               for ip in models.InfPerangkat.select()]
@@ -68,7 +67,7 @@ class GetPost(BaseIp):
                 'data': ip}
 
     # store
-    @jwt_required
+    @login_required
     def post(self):
         self.reqargs()
 
@@ -85,14 +84,14 @@ class GetPost(BaseIp):
 
 class GetPutDel(BaseIp):
     # show
-    @jwt_required
+    @login_required
     def get(self, id):
         ip = get_or_abort(id)
         return {'success': True,
                 'data': marshal(ip, ip_fields)}
 
     # edit
-    @jwt_required
+    @login_required
     def put(self, id):
         self.reqargs()
 
@@ -108,7 +107,7 @@ class GetPutDel(BaseIp):
                     'message': 'Model does not exist'}
 
     # delete
-    @jwt_required
+    @login_required
     def delete(self, id):
         get_or_abort(id)
         models.InfPerangkat.delete().where(models.InfPerangkat.id == id).execute()
