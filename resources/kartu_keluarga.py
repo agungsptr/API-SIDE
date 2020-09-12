@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Resource, Api, reqparse, fields, marshal
+from flask_restful import Resource, reqparse, fields, marshal
 
 from .resource import *
 
