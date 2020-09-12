@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Resource, Api, reqparse, fields, marshal, inputs
+from flask_restful import Resource, reqparse, fields, marshal, inputs
 
 from .resource import *
 
@@ -94,7 +94,7 @@ class BasePenduduk(Resource):
 
 class GetPost(BasePenduduk):
     # index
-    @login_required
+    # @login_required
     def get(self):
         penduduk = [marshal(penduduk, penduduk_fields)
                     for penduduk in models.Penduduk.select()]
@@ -123,14 +123,14 @@ class GetPost(BasePenduduk):
 
 class GetPutDel(BasePenduduk):
     # show
-    @login_required
+    # @login_required
     def get(self, id):
         penduduk = get_or_abort(id, True)
         return {'success': True,
                 'data': marshal(penduduk, penduduk_fields)}
 
     # edit
-    @login_required
+    # @login_required
     def put(self, id):
         self.reqargs()
 
@@ -154,7 +154,7 @@ class GetPutDel(BasePenduduk):
                     'message': 'Nomor NIK is alredy exist'}
 
     # delete
-    @login_required
+    # @login_required
     def delete(self, id):
         penduduk = get_or_abort(id, True)
         models.Penduduk.delete().where(models.Penduduk.id == id).execute()

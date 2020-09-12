@@ -66,7 +66,7 @@ class BaseKk(Resource):
 
 class GetPost(BaseKk):
     # index
-    @login_required
+    # @login_required
     def get(self):
         kk = [marshal(kk, kk_fields)
               for kk in models.KartuKeluarga.select()]
@@ -74,7 +74,7 @@ class GetPost(BaseKk):
                 'data': kk}
 
     # store
-    @login_required
+    # @login_required
     def post(self):
         self.reqargs()
 
@@ -93,14 +93,14 @@ class GetPost(BaseKk):
 
 class GetPutDel(BaseKk):
     # show
-    @login_required
+    # @login_required
     def get(self, id):
         kk = get_or_abort(id)
         return {'success': True,
                 'data': marshal(kk, kk_fields)}
 
     # edit
-    @login_required
+    # @login_required
     def put(self, id):
         self.reqargs()
 
@@ -121,7 +121,7 @@ class GetPutDel(BaseKk):
                     'message': 'Nomor KK alredy exist'}
 
     # delete
-    @login_required
+    # @login_required
     def delete(self, id):
         kk = get_or_abort(id)
         models.KartuKeluarga.delete().where(models.KartuKeluarga.id == id).execute()

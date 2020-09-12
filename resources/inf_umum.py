@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Resource, Api, reqparse, fields, marshal
+from flask_restful import Resource, reqparse, fields, marshal
 
 from .resource import *
 
@@ -63,7 +63,7 @@ class BaseUmum(Resource):
 
 class GetPost(BaseUmum):
     # index
-    @login_required
+    # @login_required
     def get(self):
         umum = [marshal(umum, umum_fields)
                 for umum in models.InfUmum.select()]
@@ -71,7 +71,7 @@ class GetPost(BaseUmum):
                 'data': umum}
 
     # store
-    @login_required
+    # @login_required
     def post(self):
         self.reqargs()
 
@@ -88,14 +88,14 @@ class GetPost(BaseUmum):
 
 class GetPutDel(BaseUmum):
     # show
-    @login_required
+    # @login_required
     def get(self, id):
         umum = get_or_abort(id)
         return {'success': True,
                 'data': marshal(umum, umum_fields)}
 
     # edit
-    @login_required
+    # @login_required
     def put(self, id):
         self.reqargs()
 
@@ -111,7 +111,7 @@ class GetPutDel(BaseUmum):
                     'message': 'Model does not exist'}
 
     # delete
-    @login_required
+    # @login_required
     def delete(self, id):
         get_or_abort(id)
         models.InfUmum.delete().where(models.InfUmum.id == id).execute()

@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_jwt_extended import create_access_token
-from flask_restful import Resource, Api, reqparse, fields, marshal
+from flask_restful import Resource, reqparse, fields, marshal
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from .resource import *
@@ -55,7 +55,7 @@ class BaseUser(Resource):
 
 class GetPost(BaseUser):
     # index
-    @admin_required
+    # @admin_required
     def get(self):
         users = [marshal(user, user_fields)
                  for user in models.User.select()]
@@ -63,7 +63,7 @@ class GetPost(BaseUser):
                 'data': users}
 
     # store
-    @admin_required
+    # @admin_required
     def post(self):
         self.reqargs()
 
@@ -90,14 +90,14 @@ class GetPost(BaseUser):
 
 class GetPutDel(BaseUser):
     # show
-    @admin_required
+    # @admin_required
     def get(self, id):
         user = get_or_abort(id)
         return {'success': True,
                 'data': marshal(user, user_fields)}
 
     # edit
-    @admin_required
+    # @admin_required
     def put(self, id):
         self.reqargs()
 
@@ -125,7 +125,7 @@ class GetPutDel(BaseUser):
                     'message': 'Username has been teken'}
 
     # delete
-    @admin_required
+    # @admin_required
     def delete(self, id):
         user = get_or_abort(id)
         models.User.delete().where(models.User.id == id).execute()

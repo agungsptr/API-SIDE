@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Resource, Api, reqparse, fields, marshal
+from flask_restful import Resource, reqparse, fields, marshal
 
 from .resource import *
 
@@ -35,7 +35,7 @@ class BaseSarana(Resource):
 
 class GetPost(BaseSarana):
     # index
-    @login_required
+    # @login_required
     def get(self):
         sarana = [marshal(sarana, sarana_fields)
                   for sarana in models.InfSarana.select()]
@@ -43,7 +43,7 @@ class GetPost(BaseSarana):
                 'data': sarana}
 
     # store
-    @login_required
+    # @login_required
     def post(self):
         self.reqargs()
 
@@ -60,14 +60,14 @@ class GetPost(BaseSarana):
 
 class GetPutDel(BaseSarana):
     # show
-    @login_required
+    # @login_required
     def get(self, id):
         sarana = get_or_abort(id)
         return {'success': True,
                 'data': marshal(sarana, sarana_fields)}
 
     # edit
-    @login_required
+    # @login_required
     def put(self, id):
         self.reqargs()
 
@@ -83,7 +83,7 @@ class GetPutDel(BaseSarana):
                     'message': 'Model does not exist'}
 
     # delete
-    @login_required
+    # @login_required
     def delete(self, id):
         sarana = get_or_abort(id)
         models.InfSarana.delete().where(models.InfSarana.id == id).execute()
