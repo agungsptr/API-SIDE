@@ -1,3 +1,4 @@
+from .geo import geo_api
 from .inf_administrasi import inf_administrasi_api
 from .inf_dusun import inf_dusun_api
 from .inf_penduduk import inf_penduduk_api

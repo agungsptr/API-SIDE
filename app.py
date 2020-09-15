@@ -25,6 +25,7 @@ app.register_blueprint(res.inf_administrasi_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_penduduk_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_perangkat_api, url_prefix=url_prefix)
 app.register_blueprint(res.inf_umum_api, url_prefix=url_prefix)
+app.register_blueprint(res.geo_api, url_prefix=url_prefix)
 
 # Set blacklist token for loging out
 jwt = JWTManager(app)
