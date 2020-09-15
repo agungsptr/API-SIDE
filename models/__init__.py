@@ -1,3 +1,6 @@
+from .geo_kabupaten_model import GeoKabupaten
+from .geo_kecamatan_model import GeoKecamatan
+from .geo_provinsi_model import GeoProvinsi
 from .inf_administrasi_model import InfAdministrasi
 from .inf_dusun_model import InfDusun
 from .inf_penduduk_model import InfPenduduk
@@ -25,6 +28,9 @@ def init():
         InfUmum,
         InfAdministrasi,
         InfUnggulan,
-        InfDusun
+        InfDusun,
+        GeoProvinsi,
+        GeoKabupaten,
+        GeoKecamatan
     ], safe=True)
     db.close()
