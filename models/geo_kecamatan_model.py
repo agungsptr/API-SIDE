@@ -1,5 +1,5 @@
-from models import *
 from .geo_kabupaten_model import GeoKabupaten
+from .model import *
 
 
 class GeoKecamatan(BaseModel):

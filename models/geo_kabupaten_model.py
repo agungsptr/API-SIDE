@@ -1,5 +1,5 @@
-from models import *
 from .geo_provinsi_model import GeoProvinsi
+from .model import *
 
 
 class GeoKabupaten(BaseModel):
