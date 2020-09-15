@@ -1,13 +1,12 @@
-from flask import Flask
+import os
+
 from peewee import *
 
 from config import *
 
-config = {}
+env = os.environ.get("FLASK_ENV")
 
-app = Flask(__name__)
-
-if app.config["ENV"] == "production":
+if env == "production":
     db = PostgresqlDatabase(
         database=Production.DB_NAME,
         user=Production.DB_USERNAME,
