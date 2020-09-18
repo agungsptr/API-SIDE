@@ -5,4 +5,4 @@ from .model import *
 class GeoKecamatan(BaseModel):
     id = AutoField()
     nama = CharField()
-    geokabupaten_id = ForeignKeyField(GeoKabupaten, backref='kecamatan')
+    geokabupaten_id = ForeignKeyField(GeoKabupaten, backref='geokecamatan')
