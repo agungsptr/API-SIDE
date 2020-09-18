@@ -1,6 +1,10 @@
 import csv
+import os
 
 import models
+
+seeders_dir = os.path.dirname(__file__)
+data_dir = os.path.join(seeders_dir, "data")
 
 
 def prov_seeder(id, nama):
@@ -40,7 +44,7 @@ def kec_seeder(id, nama, kab_id):
 
 def get_prov_data():
     list_prov = []
-    with open('./data/provinsi.csv') as csv_file:
+    with open(os.path.join(data_dir, 'provinsi.csv')) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for i, row in enumerate(csv_reader):
             prov = []
@@ -53,7 +57,7 @@ def get_prov_data():
 
 def get_kab_data():
     list_kab = []
-    with open('./data/kabupaten.csv') as csv_file:
+    with open(os.path.join(data_dir, 'kabupaten.csv')) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for i, row in enumerate(csv_reader):
             kab = []
@@ -67,7 +71,7 @@ def get_kab_data():
 
 def get_kec_data():
     list_kec = []
-    with open('./data/kecamatan.csv') as csv_file:
+    with open(os.path.join(data_dir, 'kecamatan.csv')) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for i, row in enumerate(csv_reader):
             kec = []
