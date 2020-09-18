@@ -11,7 +11,7 @@ def user_seeder():
             id=1,
             name='root',
             username='root',
-            password=generate_password_hash('1234567890'),
+            password=generate_password_hash('root'),
             telp='000',
             alamat='admin@side',
             jabatan='ADMIN',
