@@ -11,13 +11,7 @@ prov_fields = {
 kab_fields = {
     'id': fields.Integer,
     'nama': fields.String,
-    'geoprovinsi_id': fields.String
-}
-
-kec_fields = {
-    'id': fields.Integer,
-    'nama': fields.String,
-    'geokabupaten_id': fields.String
+    'provinsi_id': fields.String
 }
 
 
