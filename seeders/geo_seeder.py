@@ -30,18 +30,6 @@ def kab_seeder(id, nama, prov_id):
                'message': 'Model does not exist'})
 
 
-def kec_seeder(id, nama, kab_id):
-    try:
-        kec = models.GeoKecamatan.create(id=id,
-                                         nama=nama,
-                                         kabupaten_id=kab_id)
-        print({'success': True,
-               'kab': kec.nama})
-    except models.GeoKecamatan.DoesNotExist:
-        print({'success': False,
-               'message': 'Model does not exist'})
-
-
 def get_prov_data():
     list_prov = []
     with open(os.path.join(data_dir, 'provinsi.csv')) as csv_file:
@@ -69,20 +57,6 @@ def get_kab_data():
     return list_kab
 
 
-def get_kec_data():
-    list_kec = []
-    with open(os.path.join(data_dir, 'kecamatan.csv')) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for i, row in enumerate(csv_reader):
-            kec = []
-            if i > 0:
-                kec.append(row[0])
-                kec.append(row[1])
-                kec.append(row[2])
-                list_kec.append(kec)
-    return list_kec
-
-
 def prov_seeder_all():
     for prov in get_prov_data():
         prov_seeder(prov[0], prov[1])
@@ -93,12 +67,6 @@ def kab_seeder_all():
         kab_seeder(kab[0], kab[1], kab[2])
 
 
-def kec_seeder_all():
-    for kec in get_kec_data():
-        kec_seeder(kec[0], kec[1], kec[2])
-
-
 if __name__ == '__main__':
     prov_seeder_all()
     kab_seeder_all()
-    kec_seeder_all()

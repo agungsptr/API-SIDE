@@ -1,4 +1,13 @@
-import seeders
+from seeders import *
 
-if __name__ == '__main__':
-    seeders.init()
+
+def seed_user():
+    user_seeder()
+
+
+def seed_provinsi():
+    prov_seeder_all()
+
+
+def seed_kabupaten():
+    kab_seeder_all()

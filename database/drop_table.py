@@ -1,6 +1,9 @@
 import models
 
-if __name__ == '__main__':
-    models.GeoKecamatan.drop_table()
-    models.GeoKabupaten.drop_table()
+
+def drop_provinsi():
     models.GeoProvinsi.drop_table()
+
+
+def drop_kabupaten():
+    models.GeoKabupaten.drop_table()
