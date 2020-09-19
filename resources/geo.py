@@ -31,18 +31,13 @@ def get_or_abort(id, lvl: int):
             return query
     elif lvl == 2:
         try:
-            query = models.GeoKabupaten.select().where(models.GeoKabupaten.geoprovinsi_id == id).get()
+            query = models.GeoKabupaten.select().where(models.GeoKabupaten.provinsi_id == id).get()
         except models.GeoKabupaten.DoesNotExist:
             abort(404)
         else:
             return query
     else:
-        try:
-            query = models.GeoKecamatan.select().where(models.GeoKecamatan.geokabupaten_id == id).get()
-        except models.GeoKecamatan.DoesNotExist:
-            abort(404)
-        else:
-            return query
+        return abort(404)
 
 
 class GetProv(Resource):
@@ -60,24 +55,12 @@ class GetKab(Resource):
         get_or_abort(id, 2)
 
         kab = [marshal(kab, kab_fields)
-               for kab in models.GeoKabupaten.select().where(models.GeoKabupaten.geoprovinsi_id == id)]
+               for kab in models.GeoKabupaten.select().where(models.GeoKabupaten.provinsi_id == id)]
         return {'success': True,
                 'data': kab}
-
-
-class GetKec(Resource):
-    # @login_required
-    def get(self, id):
-        get_or_abort(id, 3)
-
-        kec = [marshal(kec, kec_fields)
-               for kec in models.GeoKecamatan.select().where(models.GeoKecamatan.geokabupaten_id == id)]
-        return {'success': True,
-                'data': kec}
 
 
 geo_api = Blueprint('resources.geo', __name__)
 api = Api(geo_api)
 api.add_resource(GetProv, '/geo/provinsi', endpoint='geo/provinsi')
 api.add_resource(GetKab, '/geo/kabupaten/<int:id>', endpoint='geo/kabupaten')
-api.add_resource(GetKec, '/geo/kecamatan/<int:id>', endpoint='geo/kecamatan')
