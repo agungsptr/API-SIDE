@@ -1,5 +1,4 @@
 from .geo_kabupaten_model import GeoKabupaten
-# from .geo_kecamatan_model import GeoKecamatan
 from .geo_provinsi_model import GeoProvinsi
 from .inf_administrasi_model import InfAdministrasi
 from .inf_dusun_model import InfDusun
@@ -31,6 +30,5 @@ def init():
         InfDusun,
         GeoProvinsi,
         GeoKabupaten
-        # GeoKecamatan
     ], safe=True)
     db.close()
