@@ -22,7 +22,7 @@ def kab_seeder(id, nama, prov_id):
     try:
         kab = models.GeoKabupaten.create(id=id,
                                          nama=nama,
-                                         geoprovinsi_id=prov_id)
+                                         provinsi_id=prov_id)
         print({'success': True,
                'kab': kab.nama})
     except models.GeoKabupaten.DoesNotExist:
@@ -34,7 +34,7 @@ def kec_seeder(id, nama, kab_id):
     try:
         kec = models.GeoKecamatan.create(id=id,
                                          nama=nama,
-                                         geokabupaten_id=kab_id)
+                                         kabupaten_id=kab_id)
         print({'success': True,
                'kab': kec.nama})
     except models.GeoKecamatan.DoesNotExist:
