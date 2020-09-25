@@ -7,3 +7,7 @@ def drop_provinsi():
 
 def drop_kabupaten():
     models.GeoKabupaten.drop_table()
+
+
+def drop_penduduk():
+    models.Penduduk.drop_table()

@@ -8,6 +8,7 @@ penduduk_fields = {
     'nama': fields.String,
     'tempat_lahir': fields.String,
     'tanggal_lahir': fields.String,
+    'jenis_kelamin': fields.String,
     'darah': fields.String,
     'alamat': fields.String,
     'kecamatan': fields.String,
@@ -57,6 +58,9 @@ class BasePenduduk(Resource):
         self.reqparse.add_argument(
             'tanggal_lahir', type=inputs.datetime_from_iso8601,
             required=True, help='Tanggal Lahir is required', location=['form', 'json'])
+        self.reqparse.add_argument(
+            'jenis_kelamin',
+            required=True, help='Jenis Kelamin is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'darah',
             required=False, location=['form', 'json'])
