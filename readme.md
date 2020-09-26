@@ -1,6 +1,7 @@
-# **API SIDE**
+# **SIDE API**
 
-## API Sistem Informasi Desa Menggunakan Python Framework Flask
+## **API Sistem Informasi Desa**
+##### Build with Python Framework Flask
 
 ### How to Install on Your Local
 
@@ -12,14 +13,12 @@
 
 4. Run this command to run this project
 
-   > source venv/bin/activate
-
-   > export FLASK_ENV=development
-
-   > flask run
+        source venv/bin/activate
+        export FLASK_ENV=development
+        flask run
 
 5. To seeding provinsi and kabupaten data run this command
 
-   > python seeder.py
+        python seeder.py
 
 6. Done
