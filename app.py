@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, get_raw_jwt
 
 import models as md
@@ -12,6 +12,33 @@ if app.config["ENV"] == "production":
     app.config.from_object("config.Production")
 else:
     app.config.from_object("config.Development")
+
+
+# Error to json
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
+
+
+@app.errorhandler(400)
+def bad_request(e):
+    return jsonify(error=str(e)), 400
+
+
+@app.errorhandler(403)
+def server_forbidden(e):
+    return jsonify(error=str(e)), 403
+
+
+@app.errorhandler(410)
+def gone(e):
+    return jsonify(error=str(e)), 410
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return jsonify(error=str(e)), 500
+
 
 # Register Blueprints
 app.register_blueprint(res.user_api, url_prefix=url_prefix)
