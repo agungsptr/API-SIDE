@@ -48,7 +48,7 @@ class BasePenduduk(Resource):
     def reqargs(self):
         self.reqparse.add_argument(
             'id',
-            required=True, type=int, help='Nomor NIK is required', location=['form', 'json'])
+            required=True, help='Nomor NIK is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'nama',
             required=True, help='Nama is required', location=['form', 'json'])
