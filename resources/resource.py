@@ -1,8 +1,7 @@
-import re
 from functools import wraps
 
 from email_validator import validate_email, EmailNotValidError
-from flask import abort
+from flask import abort, jsonify
 from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request, exceptions
 from flask_restful import Api as _Api
 
@@ -15,7 +14,7 @@ def admin_required(fn):
         try:
             verify_jwt_in_request()
         except exceptions.NoAuthorizationError:
-            return abort(403)
+            return abort(403, "You don't have permission to access / on this server.")
 
         identity = get_jwt_identity()
         try:
@@ -25,7 +24,7 @@ def admin_required(fn):
             else:
                 return fn(*args, **kwargs)
         except models.User.DoesNotExist:
-            return abort(403)
+            return abort(403, "You don't have permission to access / on this server.")
 
     return wrapper
 
@@ -71,5 +70,4 @@ class Api(_Api):
         if error_type in list(CUSTOM_ERRORS) + ['UnprocessableEntity']:
             return CUSTOM_ERRORS[str(error_type)]
 
-        error_message = re.sub('.*?: ', '', str(e))
-        return {'message': error_message}
+        return jsonify(error=(str(e)))
