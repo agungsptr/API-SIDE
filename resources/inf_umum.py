@@ -17,6 +17,15 @@ umum_fields = {
 }
 
 
+def counter():
+    try:
+        val = models.InfUmum.select().count()
+    except models.InfUmum.DoesNotExist:
+        abort(404)
+    else:
+        return val
+
+
 def get_or_abort(id):
     try:
         query = models.InfUmum.get_by_id(id)
@@ -73,8 +82,10 @@ class GetPost(BaseUmum):
     # store
     # @login_required
     def post(self):
-        self.reqargs()
+        if counter() >= 1:
+            abort(400, "Data can only be created once, please edit as an alternative")
 
+        self.reqargs()
         args = self.reqparse.parse_args()
 
         try:

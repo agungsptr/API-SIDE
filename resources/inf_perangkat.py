@@ -6,14 +6,23 @@ from .resource import *
 ip_fields = {
     'id': fields.Integer,
     'kades': fields.String,
-    'sekdes': fields.Integer,
+    'sekdes': fields.String,
     'ku_tata_usaha': fields.String,
     'ku_keuangan': fields.String,
     'ku_perencanaan': fields.String,
-    'ku_pemerintahan': fields.String,
-    'ku_kesejahteraan': fields.String,
-    'ku_pelayanan': fields.String
+    'ks_pemerintahan': fields.String,
+    'ks_kesejahteraan': fields.String,
+    'ks_pelayanan': fields.String
 }
+
+
+def counter():
+    try:
+        val = models.InfPerangkat.select().count()
+    except models.InfPerangkat.DoesNotExist:
+        abort(404)
+    else:
+        return val
 
 
 def get_or_abort(id):
@@ -47,13 +56,13 @@ class BaseIp(Resource):
             'ku_perencanaan',
             required=False, location=['form', 'json'])
         self.reqparse.add_argument(
-            'ku_pemerintahan',
+            'ks_pemerintahan',
             required=False, location=['form', 'json'])
         self.reqparse.add_argument(
-            'ku_kesejahteraan',
+            'ks_kesejahteraan',
             required=False, location=['form', 'json'])
         self.reqparse.add_argument(
-            'ku_pelayanan',
+            'ks_pelayanan',
             required=False, location=['form', 'json'])
 
 
@@ -69,8 +78,10 @@ class GetPost(BaseIp):
     # store
     # @login_required
     def post(self):
-        self.reqargs()
+        if counter() >= 1:
+            abort(400, "Data can only be created once, please edit as an alternative")
 
+        self.reqargs()
         args = self.reqparse.parse_args()
 
         try:

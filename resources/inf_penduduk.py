@@ -12,6 +12,15 @@ ip_fields = {
 }
 
 
+def counter():
+    try:
+        val = models.InfPenduduk.select().count()
+    except models.InfPenduduk.DoesNotExist:
+        abort(404)
+    else:
+        return val
+
+
 def get_or_abort(id):
     try:
         query = models.InfPenduduk.get_by_id(id)
@@ -53,8 +62,10 @@ class GetPost(BaseIp):
     # store
     # @login_required
     def post(self):
-        self.reqargs()
+        if counter() >= 1:
+            abort(400, "Data can only be created once, please edit as an alternative")
 
+        self.reqargs()
         args = self.reqparse.parse_args()
 
         try:
