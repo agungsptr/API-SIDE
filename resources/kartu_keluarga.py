@@ -16,6 +16,25 @@ kk_fields = {
     'kode_pos': fields.String
 }
 
+penduduk_fields = {
+    'id': fields.String,
+    'nama': fields.String,
+    'tempat_lahir': fields.String,
+    'tanggal_lahir': fields.String,
+    'jenis_kelamin': fields.String,
+    'darah': fields.String,
+    'alamat': fields.String,
+    'kecamatan': fields.String,
+    'kelurahan': fields.String,
+    'rt': fields.Integer,
+    'rw': fields.Integer,
+    'agama': fields.String,
+    'perkawinan': fields.String,
+    'kewarganegaraan': fields.String,
+    'status_hidup': fields.String,
+    'kartukeluarga_id': fields.String
+}
+
 
 def get_or_abort(id):
     try:
@@ -129,7 +148,18 @@ class GetPutDel(BaseKk):
                 'message': "Kartu Keluarga {} is deleted".format(kk.id)}
 
 
+class GetPenduduk(BaseKk):
+    # index
+    # @login_required
+    def get(self, id):
+        kk = get_or_abort(id)
+        kk_members = [marshal(member, penduduk_fields)
+                      for member in kk.penduduk]
+        return kk_members
+
+
 kartu_keluarga_api = Blueprint('resources.kartu_keluarga', __name__)
 api = Api(kartu_keluarga_api)
 api.add_resource(GetPost, '/kartu-keluarga', endpoint='kartu-keluarga/gp')
 api.add_resource(GetPutDel, '/kartu-keluarga/<string:id>', endpoint='kartu-keluarga/gpd')
+api.add_resource(GetPenduduk, '/kartu-keluarga/member/<string:id>', endpoint='kartu-keluarga/member')
