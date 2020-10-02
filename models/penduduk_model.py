@@ -6,7 +6,7 @@ class Penduduk(BaseModel):
     id = FixedCharField(primary_key=True, max_length=17)  # nomor ktp
     nama = CharField()
     tempat_lahir = CharField()
-    tanggal_lahir = DateTimeField()
+    tanggal_lahir = DateField()
     jenis_kelamin = CharField(max_length=5)  # L or P
     darah = CharField(max_length=5, null=True)
     alamat = TextField()

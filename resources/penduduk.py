@@ -56,7 +56,7 @@ class BasePenduduk(Resource):
             'tempat_lahir',
             required=True, help='Tempat Lahir is required', location=['form', 'json'])
         self.reqparse.add_argument(
-            'tanggal_lahir', type=inputs.datetime_from_iso8601,
+            'tanggal_lahir', type=inputs.date,
             required=True, help='Tanggal Lahir is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'jenis_kelamin',
