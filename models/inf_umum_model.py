@@ -11,3 +11,4 @@ class InfUmum(BaseModel):
     jp_kecamatan = FloatField(null=True)
     jp_kabupaten = FloatField(null=True)
     jp_provinsi = FloatField(null=True)
+    link_maps = TextField(null=True)

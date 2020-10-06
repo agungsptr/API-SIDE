@@ -6,7 +6,8 @@ from .resource import *
 sarana_fields = {
     'id': fields.Integer,
     'nama': fields.String,
-    'alamat': fields.String
+    'alamat': fields.String,
+    'total': fields.Integer
 }
 
 
@@ -30,6 +31,9 @@ class BaseSarana(Resource):
             required=True, help='Program Unggulan is required', location=['form', 'json'])
         self.reqparse.add_argument(
             'alamat',
+            required=True, help='Alamat is required', location=['form', 'json'])
+        self.reqparse.add_argument(
+            'total', type=int,
             required=True, help='Alamat is required', location=['form', 'json'])
 
 

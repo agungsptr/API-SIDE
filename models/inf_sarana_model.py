@@ -5,3 +5,4 @@ class InfSarana(BaseModel):
     id = AutoField()
     nama = CharField()
     alamat = TextField()
+    total = IntegerField()

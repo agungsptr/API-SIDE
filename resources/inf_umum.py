@@ -13,7 +13,8 @@ umum_fields = {
     'bw_barat': fields.String,
     'jp_kecamatan': fields.Float,
     'jp_kabupaten': fields.Float,
-    'jp_provinsi': fields.Float
+    'jp_provinsi': fields.Float,
+    'link_maps': fields.String
 }
 
 
@@ -67,6 +68,9 @@ class BaseUmum(Resource):
             required=False, location=['form', 'json'])
         self.reqparse.add_argument(
             'jp_provinsi', type=float,
+            required=False, location=['form', 'json'])
+        self.reqparse.add_argument(
+            'link_maps',
             required=False, location=['form', 'json'])
 
 
